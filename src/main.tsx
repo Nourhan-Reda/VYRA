@@ -13,6 +13,7 @@ import AuthLayout from "./modules/customer/pages/AuthLayout.tsx";
 
 import Blog from "./modules/customer/pages/Blog";
 import { CartProvider } from "./store/CartProvider.tsx";
+import AllCollections from "./modules/customer/pages/AllCollections.tsx";
 
 const router = createBrowserRouter([
   {
@@ -23,12 +24,16 @@ const router = createBrowserRouter([
         index: true,
         element: <HomePage />,
       },
-    ],
-  },
-  {
-    path: "blog",
-    element: <Blog />,
-  },
+        {
+      path: "collections",
+      element: <AllCollections />,
+    },
+  ],
+},
+{
+  path: "blog",
+  element: <Blog />,
+},
   {
     path: "auth",
     element: <AuthLayout />,

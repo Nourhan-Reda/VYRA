@@ -15,10 +15,10 @@ type NavbarProps = {
 };
 
 const DEFAULT_ITEMS: NavItem[] = [
-  { label: "Men", href: "#men" },
-  { label: "Women", href: "#women" },
-  { label: "Children", href: "#children" },
-  { label: "Blog", href: "/blog" }, // ✅ ONLY ADDITION
+  { label: "Men", href: "/collections" },
+  { label: "Women", href: "/collections" },
+  { label: "Children", href: "/collections" },
+  { label: "Blog", href: "/blog" },
 ];
 
 export default function Navbar({
@@ -64,12 +64,12 @@ export default function Navbar({
             </div>
 
             <div>
-              <a
-                href="/"
+              <button
+                onClick={() => navigate("/")}
                 className="text-2xl font-semibold tracking-[0.2em] text-[#4b2a53]"
               >
                 {brand}
-              </a>
+              </button>
 
               <p className="text-[11px] uppercase tracking-[0.3em] text-[#4b2a53]/60">
                 {tagLine}
@@ -123,26 +123,28 @@ export default function Navbar({
           </div>
         </div>
 
+        {/* NAV LINKS */}
         <nav className="flex flex-wrap items-center justify-center gap-12 text-[13px] font-semibold uppercase tracking-[0.35em] text-[#3a293f]">
-          {navItems.map((item) =>
-            item.href.startsWith("/") ? (
+          {navItems.map((item) => {
+            const label = item.label.toLowerCase();
+            const isCategory = ["men", "women", "children"].includes(label);
+
+            return (
               <button
                 key={item.label}
-                onClick={() => navigate(item.href)}
+                onClick={() => {
+                  if (isCategory) {
+                    navigate(`/collections?search=${label}`); 
+                  } else {
+                    navigate(item.href); // normal pages
+                  }
+                }}
                 className="transition hover:text-[#4b2a53]"
               >
                 {item.label}
               </button>
-            ) : (
-              <a
-                key={item.label}
-                href={item.href}
-                className="transition hover:text-[#4b2a53]"
-              >
-                {item.label}
-              </a>
-            ),
-          )}
+            );
+          })}
         </nav>
       </div>
     </header>

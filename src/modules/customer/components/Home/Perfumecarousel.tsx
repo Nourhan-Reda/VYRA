@@ -16,7 +16,7 @@ const API_DATA: Product[] = [
     title: "Floral Rose Essence",
     description: "Soft feminine fragrance with romantic floral fresh notes",
     image:
-      "https://i.pinimg.com/736x/21/4c/d3/214cd3f69b77db896ad01de2aa171367.jpg",
+      "https://i.pinimg.com/1200x/97/27/f6/9727f62d412ff145d386c1741af3437b.jpg",
     price: 350,
     category: "women",
     rating: 4.5,

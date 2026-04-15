@@ -1,12 +1,13 @@
 import { useState } from "react";
 import ProductGrid from "./ProductGrid";
+import { useNavigate } from "react-router-dom";
 
 const categories = [
   {
     key: "women",
     label: "Women",
     image:
-      "https://i.pinimg.com/736x/21/4c/d3/214cd3f69b77db896ad01de2aa171367.jpg",
+      "https://i.pinimg.com/736x/fd/1a/a7/fd1aa7d65ac9efcb945237c21e81dc03.jpg",
   },
   {
     key: "men",
@@ -24,6 +25,7 @@ const categories = [
 
 export default function ShopCollection() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const navigate=useNavigate();
 
   return (
     <section className="px-6 py-20 bg-[#faf7fb] text-[#2f1d17]">
@@ -45,10 +47,9 @@ export default function ShopCollection() {
               key={cat.key}
               onClick={() => setSelectedCategory(cat.key)}
               className={`cursor-pointer group relative h-[260px] rounded-xl overflow-hidden border transition
-                ${
-                  selectedCategory === cat.key
-                    ? "border-[#4b2a53] shadow-[0_0_30px_rgba(75,42,83,0.15)]"
-                    : "border-[#e7dfe9]"
+                ${selectedCategory === cat.key
+                  ? "border-[#4b2a53] shadow-[0_0_30px_rgba(75,42,83,0.15)]"
+                  : "border-[#e7dfe9]"
                 }`}
             >
               {/* Image */}
@@ -78,6 +79,16 @@ export default function ShopCollection() {
             <ProductGrid category={selectedCategory} />
           </div>
         )}
+        <div className="flex justify-center mt-10">
+          <button
+          onClick={()=>navigate("collections")}
+           className="px-8 py-3 bg-[#4b2a53] text-white rounded-full 
+  tracking-widest uppercase text-sm 
+  hover:bg-[#390138] transition duration-300 
+  shadow-lg hover:shadow-xl">
+            See All Collection
+          </button>
+        </div>
       </div>
     </section>
   );
