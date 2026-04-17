@@ -1,6 +1,7 @@
-import { useState } from "react";
 import { Heart, ShoppingCart } from "lucide-react";
 import { useCart } from "../../../store/cart";
+import { useWishlist } from "../../../store/wishlist-context";
+import { toast } from "sonner";
 import type { Product } from "../types/Product";
 
 type Props = {
@@ -9,7 +10,9 @@ type Props = {
 
 export default function Card({ product }: Props) {
   const { addToCart } = useCart();
-  const [isFav, setIsFav] = useState(false);
+
+  const { wishlistItems, toggleWishlist } = useWishlist();
+  const isFav = wishlistItems.includes(product.id);
 
   const isOutOfStock = product.stock <= 0;
 
@@ -31,18 +34,24 @@ export default function Card({ product }: Props) {
             group-hover:scale-105 transition-transform duration-700 ease-out"
         />
 
-        {/* Fav Button */}
+        {/* Fav Button - NOW CONNECTED TO GLOBAL STORE */}
         <button
           onClick={(e) => {
             e.stopPropagation();
-            setIsFav((prev) => !prev);
+            toggleWishlist(product.id);
+            if (!isFav) {
+              toast.success("Added to Wishlist", {
+                description: `${product.title} saved to your collection.`,
+              });
+            }
           }}
           className={`absolute top-3 right-3 z-20
             w-9 h-9 rounded-full flex items-center justify-center
             backdrop-blur-sm transition-all duration-300 shadow-md
-            ${isFav
-              ? "bg-[#4b2a53] text-white scale-110"
-              : "bg-white/80 text-[#4b2a53] hover:bg-white hover:scale-105"
+            ${
+              isFav
+                ? "bg-[#4b2a53] text-white scale-110"
+                : "bg-white/80 text-[#4b2a53] hover:bg-white hover:scale-105"
             }`}
           aria-label={isFav ? "Remove from favorites" : "Add to favorites"}
         >
@@ -55,10 +64,12 @@ export default function Card({ product }: Props) {
 
         {/* Out of Stock Badge */}
         {isOutOfStock && (
-          <div className="absolute top-3 left-3 z-20
+          <div
+            className="absolute top-3 left-3 z-20
             bg-white/90 backdrop-blur-sm px-2.5 py-1
             text-[10px] font-semibold uppercase tracking-wider
-            text-red-500 rounded-full shadow-sm">
+            text-red-500 rounded-full shadow-sm"
+          >
             Out of Stock
           </div>
         )}
@@ -67,24 +78,31 @@ export default function Card({ product }: Props) {
       {/* Content */}
       <div className="p-4">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-[10px] uppercase tracking-widest
-            text-[#4b2a53]/50 font-medium">
+          <span
+            className="text-[10px] uppercase tracking-widest
+            text-[#4b2a53]/50 font-medium"
+          >
             {product.category ?? "Product"}
           </span>
-          <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full
-            ${isOutOfStock
-              ? "bg-red-50 text-red-400"
-              : product.stock <= 5
-                ? "bg-amber-50 text-amber-500"
-                : "bg-emerald-50 text-emerald-600"
-            }`}>
+          <span
+            className={`text-[10px] font-medium px-2 py-0.5 rounded-full
+            ${
+              isOutOfStock
+                ? "bg-red-50 text-red-400"
+                : product.stock <= 5
+                  ? "bg-amber-50 text-amber-500"
+                  : "bg-emerald-50 text-emerald-600"
+            }`}
+          >
             {isOutOfStock ? "Sold out" : `${product.stock} left`}
           </span>
         </div>
 
-        <h3 className="text-sm font-semibold text-[#2f1d17]
+        <h3
+          className="text-sm font-semibold text-[#2f1d17]
           group-hover:text-[#4b2a53] transition-colors duration-300
-          line-clamp-1 leading-snug">
+          line-clamp-1 leading-snug"
+        >
           {product.title}
         </h3>
 
@@ -114,9 +132,10 @@ export default function Card({ product }: Props) {
             className={`flex items-center gap-1.5 px-4 py-2
               text-[11px] font-semibold uppercase tracking-widest
               rounded-full transition-all duration-300 whitespace-nowrap
-              ${isOutOfStock
-                ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                : "bg-[#4b2a53] text-white hover:bg-[#3a2040] active:scale-95 shadow-sm hover:shadow-md"
+              ${
+                isOutOfStock
+                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                  : "bg-[#4b2a53] text-white hover:bg-[#3a2040] active:scale-95 shadow-sm hover:shadow-md"
               }`}
           >
             <ShoppingCart size={13} className="shrink-0" />

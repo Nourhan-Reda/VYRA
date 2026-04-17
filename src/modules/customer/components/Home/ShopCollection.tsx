@@ -25,7 +25,7 @@ const categories = [
 
 export default function ShopCollection() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   return (
     <section className="px-6 py-20 bg-[#faf7fb] text-[#2f1d17]">
@@ -47,9 +47,10 @@ export default function ShopCollection() {
               key={cat.key}
               onClick={() => setSelectedCategory(cat.key)}
               className={`cursor-pointer group relative h-[260px] rounded-xl overflow-hidden border transition
-                ${selectedCategory === cat.key
-                  ? "border-[#4b2a53] shadow-[0_0_30px_rgba(75,42,83,0.15)]"
-                  : "border-[#e7dfe9]"
+                ${
+                  selectedCategory === cat.key
+                    ? "border-[#4b2a53] shadow-[0_0_30px_rgba(75,42,83,0.15)]"
+                    : "border-[#e7dfe9]"
                 }`}
             >
               {/* Image */}
@@ -81,11 +82,12 @@ export default function ShopCollection() {
         )}
         <div className="flex justify-center mt-10">
           <button
-          onClick={()=>navigate("collections")}
-           className="px-8 py-3 bg-[#4b2a53] text-white rounded-full 
+            onClick={() => navigate("collections")}
+            className="px-8 py-3 bg-[#4b2a53] text-white rounded-full 
   tracking-widest uppercase text-sm 
   hover:bg-[#390138] transition duration-300 
-  shadow-lg hover:shadow-xl">
+  shadow-lg hover:shadow-xl"
+          >
             See All Collection
           </button>
         </div>

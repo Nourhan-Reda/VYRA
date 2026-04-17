@@ -1,10 +1,10 @@
-import { useCartLogic } from "../hooks/useCartLogic";
+import { useCart } from "../../../store/cart";
 import CartItemCard from "../components/cart/CartItemCard";
 import CartSummary from "../components/cart/CartSummary";
 import { Link } from "react-router-dom";
 
 export default function CartPage() {
-  const { cart } = useCartLogic();
+  const { cart } = useCart();
 
   return (
     <div className="min-h-screen bg-white pt-32 pb-20 px-6">
