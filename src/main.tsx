@@ -18,6 +18,7 @@ import ProductDetails from "./modules/customer/pages/ProductDetails.tsx";
 import Checkout from "./modules/customer/pages/Checkout.tsx";
 import ProtectedRoute from "./protected/ProtectedRoute.tsx";
 import ProfilePage from "./modules/customer/pages/Profile.tsx";
+import ChatBot from "./modules/customer/components/Home/ChatBot.tsx";
 
 const router = createBrowserRouter([
   {
@@ -38,8 +39,11 @@ const router = createBrowserRouter([
       },
       {
         path: "checkout",
-        element:
-          (<ProtectedRoute><Checkout /></ProtectedRoute>),
+        element: (
+          <ProtectedRoute>
+            <Checkout />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "cart",
@@ -66,6 +70,10 @@ const router = createBrowserRouter([
   {
     path: "auth",
     element: <AuthLayout />,
+  },
+  {
+    path: "chatbot",
+    element: <ChatBot />,
   },
 ]);
 

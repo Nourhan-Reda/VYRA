@@ -3,6 +3,7 @@ import { Footer } from "./modules/customer/components/Home/Footer";
 import Navbar from "./modules/customer/components/Home/Navbar";
 import CartDrawer from "./modules/customer/components/cart/CartDrawer";
 import { useCart } from "./store/cart";
+import ChatBot from "./modules/customer/components/Home/ChatBot";
 
 const App = () => {
   const { cart } = useCart();
@@ -22,6 +23,7 @@ const App = () => {
       </main>
 
       <Footer />
+      <ChatBot />
     </div>
   );
 };
