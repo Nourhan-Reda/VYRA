@@ -20,11 +20,18 @@ import ProtectedRoute from "./protected/ProtectedRoute.tsx";
 import ProfilePage from "./modules/customer/pages/Profile.tsx";
 import ChatBot from "./modules/customer/components/Home/ChatBot.tsx";
 import AuthRoute from "./protected/AuthGuard.tsx";
+import AdminProtectedRoute from "./protected/AdminProtectedRoute.tsx";
+import { Dashboard } from "./modules/admin/pages/Dashboard.tsx";
+import UserRoute from "./protected/UserRoute.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: (
+      <UserRoute>
+        <App />
+      </UserRoute>
+    ),
     children: [
       {
         index: true,
@@ -70,12 +77,20 @@ const router = createBrowserRouter([
   },
   {
     path: "auth",
-    element:(<AuthRoute><AuthLayout /></AuthRoute>) ,
+    element: (<AuthRoute><AuthLayout /></AuthRoute>),
   },
   {
     path: "chatbot",
     element: <ChatBot />,
   },
+  {
+    path: "dashboard",
+    element: (
+      <AdminProtectedRoute>
+        <Dashboard />
+      </AdminProtectedRoute>
+    ),
+  }
 ]);
 
 createRoot(document.getElementById("root")!).render(
