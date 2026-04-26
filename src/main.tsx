@@ -28,6 +28,8 @@ import StockSales from "./modules/admin/pages/StockSales.tsx";
 import AdminProtectedRoute from "./protected/AdminProtectedRoute.tsx";
 import { Dashboard } from "./modules/admin/pages/Dashboard.tsx";
 import UserRoute from "./protected/UserRoute.tsx";
+import ConciergeLogs from "./modules/admin/components/ConciergeLogs.tsx";
+import Settings from "./modules/admin/pages/Settings.tsx";
 
 const router = createBrowserRouter([
   {
@@ -97,15 +99,17 @@ const router = createBrowserRouter([
     element: <AdminLayout />,
     children: [
       {
-        index: true, // This makes Overview the default page for /admin
+        index: true,
         element: <Overview />,
       },
       {
-        path: "inventory", // This matches /admin/inventory
+        path: "inventory",
         element: <Inventory />,
       },
       { path: "categories", element: <Categories /> },
-      { path: "stats", element: <StockSales /> }, // Add this line
+      { path: "stats", element: <StockSales /> },
+      { path: "ai-logs", element: <ConciergeLogs /> },
+      { path: "settings", element: <Settings /> },
     ],
   },
   {
